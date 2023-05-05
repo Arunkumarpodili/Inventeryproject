@@ -1,0 +1,12 @@
+[2022-11-24 16:16:02.436][DBG] [lyj][NewLocalStorageClass] return true
+[2022-11-24 16:16:02.437][DBG] [lyj][CLocalStorage::Initialize] first disk path [C:/Users/Public/iVMS-4200 Site/UserData/Video/]
+[2022-11-24 16:16:05.078][DBG] [lyj][NewLocalStorageClass] return true
+[2022-11-24 16:16:05.078][DBG] [lyj][CLocalStorage::Initialize] first disk path [C:/Users/Public/iVMS-4200 Site/UserData/Video/]
+[2022-11-24 20:09:34.266][DBG] [lyj][CLocalStorage::Release] close all opened channel
+[2022-11-24 20:09:34.269][DBG] [lyj][CLocalStorage::Release] close disk check thread
+[2022-11-24 20:09:34.269][DBG] [lyj][CLocalStorage::Release] success
+[2022-11-24 20:09:34.269][DBG] [lyj][DelLocalStorageClass] return true
+[2022-11-24 20:09:35.100][DBG] [lyj][CLocalStorage::Release] close all opened channel
+[2022-11-24 20:09:35.100][DBG] [lyj][CLocalStorage::Release] close disk check thread
+[2022-11-24 20:09:35.100][DBG] [lyj][CLocalStorage::Release] success
+[2022-11-24 20:09:35.100][DBG] [lyj][DelLocalStorageClass] return true

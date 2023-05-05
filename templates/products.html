@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Inventory Managmnet App</title>
+{% endblock %}
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item active">Products</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">Products</div>
+            <div class="card-body">
+                <div class="card mb-4">
+                    <div class="card-header">New Product</div>
+                    <div class="card-body">
+                        <form action="/products/" method="POST" id="product_form">
+                            <label for="productId" class="col-form-label">Part Name</label>
+                            <input type="text" name="productId" id="productId">
+                            <label for="part_id" class="col-form-label">Part Number</label>
+                            <input type="text" name="part_id" id="part_id">
+                            <label for="area" class="col-form-label">Area</label>
+                            <input type="number" name="area" id="area">
+
+                            <input id="submitProduct" value="Add Product" class="btn btn-primary">
+                        </form>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table mr-1"></i>
+                    Products Table
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        {% if products|length < 1 %}
+                        <h4>There are no Products, add one above</h4>
+                        {% else %}
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Part number</th>
+                                    <th>Area</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+
+                            </tfoot>
+                            <tbody>
+                                {% for product in products %}
+
+                                <tr>
+                                    <td>{{ product.productId }}</td>
+                                    <td>{{ product.part_id }}</td>
+                                    <td>{{product.area}}</td>
+                                    <td>{{ product.date_created.date() }}</td>
+
+                                    <td>
+<a href="/delete-product/{{ product.productId }}" onclick="return confirmDelete();">Delete</a>
+          <br>
+                                        <a href="/update-product/{{ product.productId }}">Update</a>
+<script>
+function confirmDelete() {
+    if (confirm("Are you sure you want to delete this product?")) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+</script>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

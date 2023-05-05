@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Inventory Managment App</title>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item active">Movements</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">Movements</div>
+            <div class="card-body">
+                <div class="card mb-4">
+                    <div class="card-header">New Movement</div>
+                    <div class="card-body">
+                        <form action="/movements/" method="POST" id="movements_from">
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="productId">Part Name</label>
+                                        <select id="productId" name="productId" class="form-control">
+                                            <option selected value="">Choose...</option>
+                                           {% set added_product_ids = [] %}
+                                            {% for product in inwarding %}
+                                            {% if product.productId not in added_product_ids %}
+                                            <option value="{{product.productId}}">{{product.productId}}</option>
+                                            {% set _ = added_product_ids.append(product.productId) %}
+                                            {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="part_id">Part number</label>
+                                        <input class="form-control" name="part_id" id="part_id" type="text"  />
+                                    </div>
+                                </div>
+                                                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="area">Area</label>
+                                        <input class="form-control" name="area" id="area" type="number"  />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="quantity">quantity</label>
+                                        <input class="form-control" name="quantity" id="quantity" type="number" placeholder="Enter Quantity" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+
+                            <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="operationperson_id">Operations Person</label>
+                                        <select id="operationperson_id" name="operationperson_id" class="form-control">
+                                            <option selected value="">Choose...</option>
+                                           {% set added_person_ids = [] %}
+                                            {% for product in inwarding %}
+                                            {% if product.operationperson_id not in added_person_ids %}
+                                            <option value="{{product.operationperson_id}}">{{product.operationperson_id}}</option>
+                                            {% set _ = added_person_ids.append(product.operationperson_id) %}
+                                            {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="operationperson_phn">Operations Person Phonenumber</label>
+                                        <input class="form-control" name="operationperson_phn" id="operationperson_phn" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="fromLocation">From</label>
+                                    <select id="fromLocation" class="form-control" name="fromLocation">
+    <option selected value="">Choose...</option>
+    {% set added_location_ids = [] %}
+    {% for location in locations %}
+        {% if location.location_id not in added_location_ids %}
+            <option value="{{ location.location_id }}">{{ location.location_id }}</option>
+            {% set _ = added_location_ids.append(location.location_id) %}
+        {% endif %}
+    {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="toLocation">TO</label>
+
+                               <select id="toLocation" name="toLocation" class="form-control">
+    <option selected value="">Choose...</option>
+    {% set added_location_ids = [] %}
+    {% for location in locations %}
+        {% if location.location_id not in added_location_ids %}
+            <option value="{{ location.location_id }}">{{ location.location_id }}</option>
+            {% set _ = added_location_ids.append(location.location_id) %}
+        {% endif %}
+    {% endfor %}
+                               </select>
+
+
+                                </div>
+
+                            </div>
+                            <div class="form-group mt-4 mb-0">
+                                <input type="submit" class="btn btn-primary btn-block" value="Add Movement" class="btn btn-primary">
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div>
+                <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table mr-1"></i>
+                    Movements Table
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        {% if movements|length < 1 %}
+                        <h4>There are no Movements, add one above</h4>
+                        {% else %}
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Part Name</th>
+                                    <th>Part Number</th>
+                                    <th>Area/unit</th>
+                                    <th>Quantity</th>
+                                    <th>Area</th>
+                                    <th>Operation Person</th>
+                                    <th>Phonenumber</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Time</th>
+
+                                </tr>
+                            </thead>
+                            <tfoot>
+                            </tfoot>
+                            <tbody>
+                                {% for movement in movements%}
+                                <tr>
+                                    <td>{{ movement.movement_id }}</td>
+                                    <td>{{ movement.productId }}</td>
+                                    <td>{{ movement.part_id }}</td>
+                                    <td>{{ movement.area}}</td>
+                                    <td>{{ movement.quantity }}</td>
+                                    <td>{{ movement.Tarea }}</td>
+                                    <td>{{ movement.operationperson_id }}</td>
+                                    <td>{{ movement.operationperson_phn }}</td>
+                                    <td>{{ movement.from_location }}</td>
+                                    <td>{{ movement.to_location }}</td>
+                                    <td>{{movement.movement_time}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
