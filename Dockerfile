@@ -2,6 +2,8 @@ FROM almalinux
 
 COPY requirements.txt .
 
+RUN yum install python -y 
+
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 RUN yum install nginx -y
