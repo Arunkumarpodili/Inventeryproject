@@ -1,14 +1,17 @@
-FROM python:3.9-slim-buster
-
-WORKDIR /app
+FROM almalinux
 
 COPY requirements.txt .
 
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-COPY . .
+RUN yum install nginx -y
 
-EXPOSE 3494
+RUN rm -rf /usr/share/nginx/html/index.html
 
-CMD ["python","app.py"]
+COPY INVENTERY_APPLICATION /usr/share/nginx/html/
+
+EXPOSE 85:80
+
+CMD ["nginx", "-g", "daemon off;"]
+
 

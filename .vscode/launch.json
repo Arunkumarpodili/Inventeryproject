@@ -14,7 +14,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
+            "url": "http://http://44.210.131.248:8080",
             "webRoot": "${workspaceFolder}"
         }
     ]
