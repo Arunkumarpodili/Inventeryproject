@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<canvas id="gauge-chart"></canvas>
+<script>
+  // Make an AJAX request to the Flask endpoint
+  fetch("/inwarding")
+    .then(response => response.json())
+    .then(data => {
+      // Get the remaining_areas and location_area data from the response
+      const remaining_areas = data.remaining_areas;
+      const location_area = data.location_area;
+
+      // Create the chart using the data
+      var canvas = document.getElementById("gauge-chart");
+      var ctx = canvas.getContext("2d");
+
+      var chart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          datasets: [
+            {
+              data: [remaining_areas[location_id], location_area - remaining_areas[location_id]],
+              backgroundColor: ["#f0ad4e", "#5cb85c"],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutoutPercentage: 80,
+          tooltips: {
+            enabled: false,
+          },
+          animation: {
+            animateScale: true,
+            animateRotate: true,
+          },
+        },
+      });
+    });
+</script>
+
+
+<body>
+
+<div class="w3-container" >
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <h3>This Code is Under Process</h3>
+
+</div>
+
+</body>
+</html>
